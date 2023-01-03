@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import MovieCard from "./MovieCard";
 import SearchIcon from "./search.svg";
+import HelloWorldRainBackground from "./MoviesRainBackground";
+import MoviesRainBackground from "./MoviesRainBackground";
 
 const API_URL = 'https://www.omdbapi.com?apikey=b90359a'
 
@@ -21,32 +23,36 @@ function App() {
 
     return (
         <div className="App">
-            <h1></h1>
-
-            <div className="search">
-                <input
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="Search movies"
-                />
-                <img
-                    src={SearchIcon}
-                    alt="search"
-                    onClick={() => searchMovies(searchTerm)}
-                />
+            <div className="container2">
+                <div className="box2">
+                    <div className="search">
+                        <input
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder="Search movies"
+                        />
+                        <img
+                            src={SearchIcon}
+                            alt="search"
+                            onClick={() => searchMovies(searchTerm)}
+                        />
+                    </div>
+                    {movies?.length > 0 ? (
+                        <div className="container">
+                            {movies.map((movie) => (
+                                <MovieCard movie={movie} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="empty">
+                            <h2>No movies found</h2>
+                        </div>
+                    )}
+                </div>
+                <div className="overlay2">
+                    <MoviesRainBackground/>
+                </div>
             </div>
-
-            {movies?.length > 0 ? (
-                <div className="container">
-                    {movies.map((movie) => (
-                        <MovieCard movie={movie} />
-                    ))}
-                </div>
-            ) : (
-                <div className="empty">
-                    <h2>No movies found</h2>
-                </div>
-            )}
         </div>
     );
 }
